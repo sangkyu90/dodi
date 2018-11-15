@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SQL.PROJECT">
+
+	<select id="selectList" resultType="pr" parameterType="pr">
+		select * from project order by pjnum
+	</select>
+	<select id="selectProject" resultType="pr" parameterType="pr">
+		select * from project where pjnum=#{pjnum}
+	</select>
+	
+	<update id="updateProject" parameterType="pr">
+		update project
+		<set>
+			<if test="membernum!=null">membernum=#{membernum},</if>
+			<if test="btype!=null">btype=#{btype},</if>
+			<if test="ptitle!=null">ptitle=#{ptitle},</if>
+			<if test="ppay!=null">ppay=#{ppay},</if>
+			<if test="pdate!=null">pdate=#{pdate},</if>
+			<if test="puploaddate!=null">puploaddate=#{puploaddate},</if>
+			<if test="ptype!=null">ptype=#{ptype},</if>
+			<if test="getpartnum!=null">getpartnum=#{getpartnum},</if>
+			<if test="getpermember!=null">getpermember=#{getpermember},</if>
+			<if test="pdesc!=null">pdesc=#{pdesc},</if>
+			<if test="pstayarea!=null">pstayarea=#{pstayarea},</if>
+			<if test="uploaddate!=null">uploaddate=#{uploaddate}</if>
+		</set>
+		where pjnum=#{pjnum}
+	</update>
+	
+	<insert id="insertProject" parameterType="pr">
+		insert into project (pjnum,membernum,btype,ptitle,ppay,pdate,puploaddate,ptype,getpartnum,getpermember,pdesc,pstayarea,uploaddate)
+		values(seq_projecttable_pjnum.nextval,#{membernum},#{btype},#{ptitle},#{ppay},#{pdate},#{puploaddate},#{ptype},#{getpartnum},#{getpermember},#{pdesc},#{pstayarea},#{uploaddate})
+	</insert>
+	
+	<delete id="deleteProject" parameterType="pr">
+		delete from project where pjnum=#{pjnum}
+	</delete>
+</mapper>

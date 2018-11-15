@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SQL.FILELIST">
+
+	<select id="selectFileList" resultType="fl" parameterType="fl">
+		select * from filelist
+	</select>
+	<select id="selectFile" resultType="fl" parameterType="fl">
+		select * from filelist where pnum=#{pnum}
+	</select>
+	
+	<insert id="insertFileList" parameterType="fl">
+		insert into filelist(fnum,pnum,fname,ptype)
+		values(seq_filelist_fnum,모름 ,#{fname},#{ptype})
+	</insert>
+	
+	<update id="updateFileList" parameterType="fl">
+		update filelist
+		<set>
+			<if test="fname!=null">fname=#{fname}</if>
+			<if test="ptype!=null">ptype=#{ptype}</if>
+		</set>
+		<where>
+			<if test="pnum!=null">pnum=#{pnum} and</if>
+			<if test="fnum!=null">fnum=#{fnum}</if>
+		</where>
+	</update>
+	
+	<delete id="deleteFileList" parameterType="fl">
+		delete from filelist where
+		<if test="fnum!=null">fnum=#{fnum} and</if>
+		<if test="pnum!=null">pnum=#{pnum}</if>
+	</delete>
+</mapper>
